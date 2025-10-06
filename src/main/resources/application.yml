@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: walleye-backend
+    profiles:
+        active: [dev,secret]
+
+    mail:
+        host: smtp.gmail.com #pro.turbo-smtp.com
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+                debug: true
+email:
+  remetente: caioguih03@gmail.com
+  destinatarios: 
+    - omemoriamaster@gmail.com
+    - guga.f.martins09@gmail.com
+    - rodrigoabade26@gmail.com

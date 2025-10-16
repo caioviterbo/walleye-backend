@@ -34,15 +34,20 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUsuarioDto loginUsuarioDto) {
+        System.out.println(">>> Entrou no login controller");
+
         Usuario authenticatedUser = authenticationService.authenticate(loginUsuarioDto);
+        System.out.println(">>> Resultado do authenticate(): " + authenticatedUser);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
+        System.out.println(">>> Response final: " + loginResponse);
 
         return ResponseEntity.ok(loginResponse);
+
     }
     
     

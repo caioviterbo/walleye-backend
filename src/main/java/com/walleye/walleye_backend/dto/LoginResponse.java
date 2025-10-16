@@ -8,7 +8,4 @@ public class LoginResponse {
 
     private long expiresIn;
 
-    public String getToken() {
-        return token;
-    }
 }

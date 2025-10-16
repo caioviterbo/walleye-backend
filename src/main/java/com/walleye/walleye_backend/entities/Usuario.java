@@ -28,8 +28,8 @@ public class Usuario implements UserDetails {
     private String nome;
 
     private String email;
-
-    private String senha;
+ 
+    private String senha_hash;
 
     private LocalDateTime data_criacao;
 
@@ -37,16 +37,16 @@ public class Usuario implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
-
+    
     public String getPassword(){
-        return senha;
+        return senha_hash;
     }
 
     @Override
     public String getUsername() {
         return email;
     }
-
+    
     @Override
     public boolean isAccountNonExpired() {
         return true;

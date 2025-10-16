@@ -1,8 +1,11 @@
 package com.walleye.walleye_backend.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,8 @@ public class AuthenticationService {
         Usuario usuario = new Usuario();
         usuario.setNome(input.getNome());
         usuario.setEmail(input.getEmail());
-        usuario.setSenha(passwordEncoder.encode(input.getSenha()));
+        usuario.setSenha_hash(passwordEncoder.encode(input.getSenha()));
+        usuario.setData_criacao(LocalDateTime.now());
 
         return usuarioRepository.save(usuario);
                     
@@ -40,8 +44,8 @@ public class AuthenticationService {
                 input.getSenha()
                 )
         );
-
-        return usuarioRepository.findByEmail(input.getEmail()).orElseThrow();
+        return usuarioRepository.findByEmail(input.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
 }
  

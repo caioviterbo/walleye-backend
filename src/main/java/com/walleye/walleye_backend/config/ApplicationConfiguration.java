@@ -1,7 +1,9 @@
 package com.walleye.walleye_backend.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -14,14 +16,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.walleye.walleye_backend.repositories.UsuarioRepository;
 
-import lombok.AllArgsConstructor;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ApplicationConfiguration {
-    private final UsuarioRepository usuarioRepository;
+
+    private  UsuarioRepository usuarioRepository;
     
-    @Bean
+    
+   @Bean 
+   @Primary
    UserDetailsService userDetailsService() {
     return username -> usuarioRepository.findByEmail(username)
         .orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado"));
@@ -33,7 +39,7 @@ public class ApplicationConfiguration {
    }
 
    @Bean
-   public AuthenticationManager AuthenticatorManager(AuthenticationConfiguration config) throws Exception {
+   public AuthenticationManager authenticatorManager(AuthenticationConfiguration config) throws Exception {
     return config.getAuthenticationManager();
    }
 

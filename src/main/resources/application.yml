@@ -19,7 +19,11 @@ spring:
     datasource:
         url: jdbc:postgresql://db.qqbzkaepnjhldcmxlhxj.supabase.co:5432/postgres
         username: postgres
-
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 email:
   remetente: caioguih03@gmail.com

@@ -24,10 +24,10 @@ import io.jsonwebtoken.security.SignatureAlgorithm;
 @Service
 public class JwtService {
 
-    @Value("${security.jwt.secret-key}")
+    @Value("${spring.security.jwt.secret-key}")
     private String secretKey;
 
-    @Value("${security.jwt.expiration-time}")
+    @Value("${spring.security.jwt.expiration-time}")
     private long jwtExpiration;
 
     public String extractUsername(String token) {

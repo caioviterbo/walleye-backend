@@ -1,5 +1,6 @@
 package com.walleye.walleye_backend.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ public class AuthenticationService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     public Usuario signup(RegistroUsuarioDto input) {
@@ -42,3 +44,4 @@ public class AuthenticationService {
         return usuarioRepository.findByEmail(input.getEmail()).orElseThrow();
     }
 }
+ 

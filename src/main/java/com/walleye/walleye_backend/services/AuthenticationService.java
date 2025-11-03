@@ -1,6 +1,8 @@
 package com.walleye.walleye_backend.services;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,6 +48,14 @@ public class AuthenticationService {
         );
         return usuarioRepository.findByEmail(input.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+    }
+
+    public List<Usuario> allUsers() {
+        List<Usuario> users = new ArrayList<>();
+
+        usuarioRepository.findAll().forEach(users::add);
+
+        return users;
     }
 }
  

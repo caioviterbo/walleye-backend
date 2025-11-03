@@ -12,7 +12,10 @@ import com.walleye.walleye_backend.services.JwtService;
 
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,7 +28,7 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/signup")
+    @PostMapping("/registro")
     public ResponseEntity<Usuario> register(@RequestBody RegistroUsuarioDto registroUsuarioDto) {
         Usuario registroUsuario = authenticationService.signup(registroUsuarioDto);
 
@@ -48,6 +51,13 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(loginResponse);
 
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<List<Usuario>> allUsers() {
+        List <Usuario> users = authenticationService.allUsers();
+
+        return ResponseEntity.ok(users);
     }
     
     

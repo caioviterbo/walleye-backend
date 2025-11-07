@@ -1,5 +1,6 @@
 package com.walleye.walleye_backend.repositories;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,5 +11,5 @@ import com.walleye.walleye_backend.entities.Dispositivo;
 @Repository
 public interface DispositivoRepository extends JpaRepository<Dispositivo, UUID> {
 
-    
+    Long deleteByPareadoFalseAndExpiraEmBefore(LocalDateTime dateTime);
 } 

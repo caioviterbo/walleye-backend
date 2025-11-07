@@ -33,4 +33,7 @@ public class Dispositivo {
     private LocalDateTime data_registro;
     private String codigo_pareador;
     private Boolean pareado;
+
+    @JoinColumn(name = "expira_em")
+    private LocalDateTime expiraEm;
 }

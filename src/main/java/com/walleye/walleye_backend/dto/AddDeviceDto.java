@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class AddDeviceDto {
     private String nome;
-    private String localização;
+    private String localizacao;
 }

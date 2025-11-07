@@ -27,10 +27,10 @@ public class DeviceController {
     public ResponseEntity<Dispositivo> addDevice(
         @RequestBody AddDeviceDto dispositivoDto, 
         @AuthenticationPrincipal Usuario usuario) {
-
+            System.out.println(">>> Entrou no device controller");
             Dispositivo dispositivo = deviceService.addDevice(dispositivoDto, usuario);
         
-        
+            System.out.println(">>> Device" + dispositivo);
             return ResponseEntity.ok(dispositivo);
     }
     

@@ -1,11 +1,16 @@
 package com.walleye.walleye_backend.services;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.walleye.walleye_backend.dto.AddDeviceDto;
+import com.walleye.walleye_backend.dto.PairDeviceDto;
 import com.walleye.walleye_backend.entities.Dispositivo;
 import com.walleye.walleye_backend.entities.Usuario;
 import com.walleye.walleye_backend.repositories.DispositivoRepository;
@@ -34,6 +39,31 @@ public class DeviceService {
         return dispositivoRepository.save(dispositivo);
 
     }
+
+    public Dispositivo pairDevice(PairDeviceDto dto) {
+        System.out.println(">>> PairDeviceService: iniciando validação: " + dto);
+        Dispositivo dispositivo = dispositivoRepository.findById(UUID.fromString(dto.getId()))
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Dispositivo não encontrado"));
+
+        if (Boolean.TRUE.equals(dispositivo.getPareado())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Dispositivo já pareado");
+        }
+
+        if (!dispositivo.getCodigo_pareador().equals(dto.getCodigo_pareador())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Código pareador inválido");
+        }
+
+        if (dispositivo.getExpiraEm().isBefore(LocalDateTime.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Código expirado");
+        }
+        System.out.println(">>> Dispositivo encontrado no banco: " + dispositivo.getId());
+
+        dispositivo.setPareado(true);
+        dispositivo.setCodigo_pareador(null);
+
+        return dispositivoRepository.save(dispositivo);
+    }
+
     
     @Transactional
     public void removerDispositivosNaoPareadosExpirados() {

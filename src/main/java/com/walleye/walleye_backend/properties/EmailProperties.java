@@ -12,5 +12,6 @@ import lombok.Data;
 @Data
 public class EmailProperties {
     private String remetente;
-    private List<String> destinatarios;
+    private String destinatario;
+    
 }

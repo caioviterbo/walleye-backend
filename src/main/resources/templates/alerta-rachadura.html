@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerta de Rachadura Detectada</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            background: linear-gradient(90deg, #0d1f5e, #1e3a8a);
+            color: #ffffff;
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .content {
+            padding: 25px 30px;
+            color: #333333;
+        }
+
+        .content h2 {
+            font-size: 20px;
+            color: #0d1f5e;
+            margin-bottom: 10px;
+        }
+
+        .alert-box {
+            border-radius: 8px;
+            padding: 16px;
+            background-color: #fef3c7;
+            border-left: 6px solid #f59e0b;
+            margin: 20px 0;
+        }
+
+        .alert-box.critical {
+            background-color: #fee2e2;
+            border-left-color: #dc2626;
+        }
+
+        .alert-box.high {
+            background-color: #ffedd5;
+            border-left-color: #f97316;
+        }
+
+        .alert-box.medium {
+            background-color: #fef9c3;
+            border-left-color: #eab308;
+        }
+
+        .alert-info {
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .footer {
+            background-color: #f1f5f9;
+            text-align: center;
+            padding: 16px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .footer a {
+            color: #0d1f5e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="header">
+        <h1>⚠️ Alerta de Rachadura Detectada</h1>
+    </div>
+
+    <div class="content">
+        <p>Olá <strong th:text="${usuarioNome}">Usuário</strong>,</p>
+
+        <p>
+            Um novo evento de <strong>rachadura estrutural</strong> foi detectado pelo seu dispositivo:
+        </p>
+
+        <div class="alert-box" th:classappend="${nivelGravidade}">
+            <h2 th:text="${dispositivoNome}">Dispositivo D-001</h2>
+            <p class="alert-info">
+                <strong>Localização:</strong> <span th:text="${localizacao}">Bloco A - Coluna 12</span><br>
+                <strong>Horário:</strong> <span th:text="${horarioDeteccao}">2025-11-09 18:30</span><br>
+                <strong>Nível de Gravidade:</strong> <span th:text="${nivelGravidade}">Crítica</span><br>
+                <strong>Descrição:</strong> <span th:text="${descricao}">Expansão acelerada detectada. Atenção imediata recomendada.</span>
+            </p>
+        </div>
+
+        <p>
+            Acesse o sistema para visualizar mais detalhes e acompanhar o status em tempo real:
+        </p>
+
+        <p style="text-align: center; margin-top: 25px;">
+            <a th:href="${linkDashboard}"
+               style="display: inline-block; background-color: #0d1f5e; color: white; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                Ver no Dashboard
+            </a>
+        </p>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 WallEye | Sistema de Monitoramento Estrutural</p>
+        <p>
+            Este é um e-mail automático — por favor, não responda.<br>
+            <a href="https://walleye.io" target="_blank">Acesse nosso site</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>

@@ -27,7 +27,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(auth -> auth
-        .requestMatchers("/auth/**", "/device/pair").permitAll()
+        .requestMatchers("/auth/**", "/device/pair","/alerts/**", "/email/**").permitAll()
         .anyRequest().authenticated());
 
         http.sessionManagement(session -> 

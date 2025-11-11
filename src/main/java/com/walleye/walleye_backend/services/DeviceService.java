@@ -30,7 +30,7 @@ public class DeviceService {
         Dispositivo dispositivo = new Dispositivo();
         dispositivo.setNome(input.getNome());
         dispositivo.setLocalizacao(input.getLocalizacao());
-        dispositivo.setId_usuario(usuario);
+        dispositivo.setUsuario(usuario);
         dispositivo.setData_registro(LocalDateTime.now());
         dispositivo.setCodigo_pareador(codeGenerator.generatePairCode());
         dispositivo.setPareado(false);

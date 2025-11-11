@@ -23,7 +23,7 @@ public class Dispositivo {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario id_usuario;
+    private Usuario usuario;
 
     private String nome;
     private String localizacao;

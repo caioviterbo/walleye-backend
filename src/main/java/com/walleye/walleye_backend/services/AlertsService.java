@@ -1,5 +1,6 @@
 package com.walleye.walleye_backend.services;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -47,6 +48,8 @@ public class AlertsService {
         alerta.setMensagem(dto.getMessage());
         alerta.setDispositivo(dispositivo);
         alerta.setResolvido(false);
+        alerta.setData_deteccao(LocalDateTime.now());
+        dispositivo.setUltima_atualizacao(LocalDateTime.now());
 
           if (file != null && !file.isEmpty()) {
             String userId = dispositivo.getUsuario().getId().toString();

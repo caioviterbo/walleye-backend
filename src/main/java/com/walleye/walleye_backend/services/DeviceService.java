@@ -1,6 +1,7 @@
 package com.walleye.walleye_backend.services;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import com.walleye.walleye_backend.entities.Usuario;
 import com.walleye.walleye_backend.repositories.DispositivoRepository;
 import com.walleye.walleye_backend.util.PairCodeGenerator;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -40,6 +42,24 @@ public class DeviceService {
 
     }
 
+    public Dispositivo editDevice(UUID id ,AddDeviceDto dto) {
+        Dispositivo dispositivo = dispositivoRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Dispositivo não encontrado: " + id));
+
+        dispositivo.setNome(dto.getNome());
+        dispositivo.setLocalizacao(dto.getLocalizacao());
+
+        return dispositivoRepository.save(dispositivo);
+
+    }
+
+    public void deleteDevice(UUID id) {
+        Dispositivo dispositivo = dispositivoRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Dispositivo não encontrado: " + id));
+
+       dispositivoRepository.delete(dispositivo);
+    }
+
     public Dispositivo pairDevice(PairDeviceDto dto) {
         System.out.println(">>> PairDeviceService: iniciando validação: " + dto);
         Dispositivo dispositivo = dispositivoRepository.findById(UUID.fromString(dto.getId()))
@@ -60,6 +80,8 @@ public class DeviceService {
 
         dispositivo.setPareado(true);
         dispositivo.setCodigo_pareador(null);
+        dispositivo.setExpiraEm(null);
+        dispositivo.setStatus("ONLINE");
 
         return dispositivoRepository.save(dispositivo);
     }

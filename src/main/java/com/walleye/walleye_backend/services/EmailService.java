@@ -50,7 +50,7 @@ public class EmailService {
 
             helper.setFrom(emailProperties.getRemetente());
             helper.setTo(usuario.getEmail());
-            helper.setSubject("TESTE NOTIFICAÇÃO WALLEYE");
+            helper.setSubject("Seu dispositivo WallEye detectou uma rachadura!");
             helper.setText(htmlContent, true);
 
             javaMailSender.send(mimeMessage);
